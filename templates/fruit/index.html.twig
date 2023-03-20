@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fruit index{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-5 mb-3">Fruit index</h2>
+        <div class="card">
+            <a class="btn btn-outline-primary" href="{{ path('app_fruit_new') }}">
+                Create New Project
+            </a>
+        </div>
+
+        <div class="card-body">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Family</th>
+                    <th>Genus</th>
+                    <th>Fruit_order</th>
+                    <th>Fruity_vice_id</th>
+                    <th>actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for fruit in fruits %}
+                    <tr>
+                        <td>{{ fruit.id }}</td>
+                        <td>{{ fruit.name }}</td>
+                        <td>{{ fruit.family }}</td>
+                        <td>{{ fruit.genus }}</td>
+                        <td>{{ fruit.fruitOrder }}</td>
+                        <td>{{ fruit.fruityViceId }}</td>
+                        <td>
+                            <form method="post" action="{{ path('app_fruit_delete', {'id': fruit.id}) }}"
+                                  onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                <a class="btn btn-outline-info" href="{{ path('app_fruit_show', {'id': fruit.id}) }}">
+                                    Show
+                                </a>
+                                <a class="btn btn-outline-success"
+                                   href="{{ path('app_fruit_edit', {'id': fruit.id}) }}">
+                                    Edit
+                                </a>
+
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ fruit.id) }}">
+                                <button class="btn btn-outline-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="7">no records found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
