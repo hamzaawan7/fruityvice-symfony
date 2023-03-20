@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Fruit;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -12,18 +13,18 @@ class FruitType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name')
-            ->add('family')
-            ->add('genus')
-            ->add('fruit_order')
-            ->add('fruity_vice_id')
-        ;
+            ->add('name', TextType::class, ["attr" => ["class" => "form-control"]])
+            ->add('family', TextType::class, ["attr" => ["class" => "form-control"]])
+            ->add('genus', TextType::class, ["attr" => ["class" => "form-control"]])
+            ->add('fruit_order', TextType::class, ["label" => "Order", "attr" => ["class" => "form-control"]]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults([
-            'data_class' => Fruit::class,
-        ]);
+        $resolver->setDefaults(
+            [
+                'data_class' => Fruit::class,
+            ]
+        );
     }
 }

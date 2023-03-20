@@ -4,19 +4,16 @@
 
 {% block body %}
  <div class="container">
+     <h2 class="text-center mt-5 mb-3">Show Fruit</h2>
      <div class="card">
         <div class="card-header">
-          <a class="btn btn-outline-info float-right" href="{{ path('app_fruit_index') }}">
-            Back To Projects
+          <a class="btn btn-outline-warning float-right" href="{{ path('app_fruit_index') }}">
+            Back To Fruits
           </a>
         </div>
      </div>
     <table class="table table-bordered">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ fruit.id }}</td>
-            </tr>
             <tr>
                 <th>Name</th>
                 <td>{{ fruit.name }}</td>
@@ -30,12 +27,8 @@
                 <td>{{ fruit.genus }}</td>
             </tr>
             <tr>
-                <th>Fruit_order</th>
+                <th>Order</th>
                 <td>{{ fruit.fruitOrder }}</td>
-            </tr>
-            <tr>
-                <th>Fruity_vice_id</th>
-                <td>{{ fruit.fruityViceId }}</td>
             </tr>
         </tbody>
     </table>

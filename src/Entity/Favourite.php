@@ -13,37 +13,28 @@ class Favourite
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?int $fruit_id = null;
-
-    #[ORM\Column(nullable: true)]
-    private ?bool $is_favourite = null;
+    #[ORM\OneToOne(inversedBy: 'favourite')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Fruit $fruit = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getFruitId(): ?int
+    public function getFruit(): ?Fruit
     {
-        return $this->fruit_id;
+        return $this->fruit;
     }
 
-    public function setFruitId(int $fruit_id): self
+    public function setFruit(Fruit $fruit): self
     {
-        $this->fruit_id = $fruit_id;
+        // set the owning side of the relation if necessary
+        if ($fruit->getFavourite() !== $this) {
+            $fruit->setFavourite($this);
+        }
 
-        return $this;
-    }
-
-    public function isIsFavourite(): ?bool
-    {
-        return $this->is_favourite;
-    }
-
-    public function setIsFavourite(?bool $is_favourite): self
-    {
-        $this->is_favourite = $is_favourite;
+        $this->fruit = $fruit;
 
         return $this;
     }

@@ -1,27 +1,39 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Fruit index{% endblock %}
+{% block title %}Fruits{% endblock %}
 
 {% block body %}
     <div class="container">
-        <h2 class="text-center mt-5 mb-3">Fruit index</h2>
+        <h2 class="text-center mt-5 mb-3">Fruits</h2>
+
         <div class="card">
-            <a class="btn btn-outline-primary" href="{{ path('app_fruit_new') }}">
-                Create New Project
-            </a>
+            <a class="btn btn-outline-warning" href="{{ path('app_favourite_index') }}">Show Favourite Facts</a>
+            <br/>
+            <a class="btn btn-outline-primary" href="{{ path('app_fruit_new') }}">Create New Fruit</a>
         </div>
 
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        {% for message in app.flashes('error') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
+
         <div class="card-body">
-            <table class="table table-bordered">
+            <table id="fruits" class="table table-bordered">
                 <thead>
                 <tr>
                     <th>Id</th>
                     <th>Name</th>
                     <th>Family</th>
                     <th>Genus</th>
-                    <th>Fruit_order</th>
-                    <th>Fruity_vice_id</th>
-                    <th>actions</th>
+                    <th>Order</th>
+                    <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -32,7 +44,6 @@
                         <td>{{ fruit.family }}</td>
                         <td>{{ fruit.genus }}</td>
                         <td>{{ fruit.fruitOrder }}</td>
-                        <td>{{ fruit.fruityViceId }}</td>
                         <td>
                             <form method="post" action="{{ path('app_fruit_favourite', {'id': fruit.id}) }}"
                                   onsubmit="return confirm('Are you sure you want to add favourite?');">
@@ -45,13 +56,18 @@
                                 </a>
 
                                 <input type="hidden" name="_token" value="{{ csrf_token('favourite' ~ fruit.id) }}">
-                                <button class="btn btn-outline-warning">Favourite</button>
+                                {% if fruit.favourite %}
+                                    <button class="btn btn-warning"><i class="glyphicon glyphicon-star"></i></button>
+                                {% else %}
+                                    <button class="btn btn-outline-warning"><i
+                                                class="glyphicon glyphicon-star-empty"></i></button>
+                                {% endif %}
                             </form>
                         </td>
                     </tr>
                 {% else %}
                     <tr>
-                        <td colspan="7">no records found</td>
+                        <td colspan="7">No Records Found</td>
                     </tr>
                 {% endfor %}
                 </tbody>

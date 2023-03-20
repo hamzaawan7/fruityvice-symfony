@@ -28,8 +28,9 @@ class Nutrition
     #[ORM\Column]
     private ?float $sugar = null;
 
-    #[ORM\Column]
-    private ?int $fruit_id = null;
+    #[ORM\OneToOne(inversedBy: 'nutrition')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Fruit $fruit = null;
 
     public function getId(): ?int
     {
@@ -96,15 +97,13 @@ class Nutrition
         return $this;
     }
 
-    public function getFruitId(): ?int
+    public function getFruit(): ?Fruit
     {
-        return $this->fruit_id;
+        return $this->fruit;
     }
 
-    public function setFruitId(int $fruit_id): self
+    public function setFruit(?Fruit $fruit): void
     {
-        $this->fruit_id = $fruit_id;
-
-        return $this;
+        $this->fruit = $fruit;
     }
 }

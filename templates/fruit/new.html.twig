@@ -3,9 +3,23 @@
 {% block title %}New Fruit{% endblock %}
 
 {% block body %}
+<div class="container">
+    <h2 class="text-center mt-5 mb-3">Create  new Fruit</h2>
+
     <h1>Create new Fruit</h1>
 
-    {{ include('fruit/_form.html.twig') }}
-
-    <a href="{{ path('app_fruit_index') }}">back to list</a>
+    <div class="card">
+        <div class="card-header">
+            <a class="btn btn-outline-info float-right" href="{{ path('app_fruit_index') }}">
+                View All Fruits
+            </a>
+            <a class="btn btn-outline-warning float-right" href="{{ path('app_fruit_index') }}">
+                Back To Fruits
+            </a>
+        </div>
+        <div class="card-body">
+            {{ include('fruit/_form.html.twig') }}
+        </div>
+    </div>
+</div>
 {% endblock %}

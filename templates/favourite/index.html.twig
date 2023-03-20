@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fruits{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-5 mb-3">Favourites</h2>
+
+        <div class="card">
+            <a class="btn btn-outline-info" href="{{ path('app_fruit_index') }}">Show All Fruits</a>
+        </div>
+
+        <div class="card-body">
+            <table id="table" class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Carbohydrates</th>
+                    <th>Protein</th>
+                    <th>Fat</th>
+                    <th>Calories</th>
+                    <th>Sugar</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% set sum_of_carbohydrates  = 0 %}
+                {% set sum_of_protein  = 0 %}
+                {% set sum_of_fat  = 0 %}
+                {% set sum_of_calories  = 0 %}
+                {% set sum_of_sugar  = 0 %}
+
+                {% for favourite in favourites %}
+                    {% set sum_of_carbohydrates = sum_of_carbohydrates + favourite.fruit.nutrition.carbohydrates %}
+                    {% set sum_of_protein = sum_of_protein + favourite.fruit.nutrition.protein %}
+                    {% set sum_of_fat = sum_of_fat + favourite.fruit.nutrition.fat %}
+                    {% set sum_of_calories = sum_of_calories + favourite.fruit.nutrition.calories %}
+                    {% set sum_of_sugar = sum_of_sugar + favourite.fruit.nutrition.sugar %}
+                    <tr>
+                        <td>{{ favourite.fruit.name }}</td>
+                        <td>{{ favourite.fruit.nutrition.carbohydrates }}</td>
+                        <td>{{ favourite.fruit.nutrition.protein }}</td>
+                        <td>{{ favourite.fruit.nutrition.fat }}</td>
+                        <td>{{ favourite.fruit.nutrition.calories }}</td>
+                        <td>{{ favourite.fruit.nutrition.sugar }}</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="7">No Records Found</td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td><b>Total</b></td>
+                    <td>{{ sum_of_carbohydrates }}</td>
+                    <td>{{ sum_of_protein }}</td>
+                    <td>{{ sum_of_fat }}</td>
+                    <td>{{ sum_of_calories }}</td>
+                    <td>{{ sum_of_sugar }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

@@ -25,8 +25,15 @@ class Fruit
     #[ORM\Column(length: 255)]
     private ?string $fruit_order = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $fruity_vice_id = null;
+
+    #[ORM\OneToOne(mappedBy: 'fruit', cascade: ['persist', 'remove'])]
+    private ?Favourite $favourite = null;
+
+    #[ORM\OneToOne(mappedBy: 'fruit', cascade: ['persist', 'remove'])]
+    private ?Nutrition $nutrition = null;
+
 
     public function getId(): ?int
     {
@@ -91,5 +98,30 @@ class Fruit
         $this->fruity_vice_id = $fruity_vice_id;
 
         return $this;
+    }
+
+    public function getFavourite(): ?Favourite
+    {
+        return $this->favourite;
+    }
+
+    public function setFavourite(Favourite $favourite): self
+    {
+        $this->favourite = $favourite;
+
+        return $this;
+    }
+
+    public function getNutrition(): ?Nutrition
+    {
+        return $this->nutrition;
+    }
+
+    /**
+     * @param Nutrition|null $nutrition
+     */
+    public function setNutrition(?Nutrition $nutrition): void
+    {
+        $this->nutrition = $nutrition;
     }
 }
