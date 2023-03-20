@@ -66,9 +66,7 @@ class FruityViceApiService
             $fruit->setGenus($item['genus']);
             $this->fruitRepository->save($fruit, true);
 
-            $nutrition = $this->entityManager->getRepository(Nutrition::class)->findOneBy(
-                ['fruit_id' => $fruit->getId()]
-            );
+            $nutrition = $fruit->getNutrition();
 
             if (!$nutrition) {
                 $nutrition = new Nutrition();
