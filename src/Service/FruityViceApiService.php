@@ -74,7 +74,7 @@ class FruityViceApiService
                 $nutrition = new Nutrition();
             }
 
-            $nutrition->setFruitId($fruit->getId());
+            $nutrition->setFruit($fruit);
             $nutrition->setCarbohydrates($item['nutritions']['carbohydrates']);
             $nutrition->setProtein($item['nutritions']['protein']);
             $nutrition->setFat($item['nutritions']['fat']);
