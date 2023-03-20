@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Favourite;
 use App\Entity\Fruit;
 use App\Form\FruitType;
+use App\Repository\FavouriteRepository;
 use App\Repository\FruitRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -71,6 +73,18 @@ class FruitController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$fruit->getId(), $request->request->get('_token'))) {
             $fruitRepository->remove($fruit, true);
+        }
+
+        return $this->redirectToRoute('app_fruit_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{id}', name: 'app_fruit_favourite', methods: ['POST'])]
+    public function favourite(Request $request, Favourite $favourite, FavouriteRepository $favouriteRepository): Response
+    {
+        if ($this->isCsrfTokenValid('favourite'.$favourite->getId(), $request->request->get('_token'))) {
+            $favouriteRepository->remove($favourite, true);
+        } else {
+            $favouriteRepository->save($favourite, true);
         }
 
         return $this->redirectToRoute('app_fruit_index', [], Response::HTTP_SEE_OTHER);

@@ -34,8 +34,8 @@
                         <td>{{ fruit.fruitOrder }}</td>
                         <td>{{ fruit.fruityViceId }}</td>
                         <td>
-                            <form method="post" action="{{ path('app_fruit_delete', {'id': fruit.id}) }}"
-                                  onsubmit="return confirm('Are you sure you want to delete this item?');">
+                            <form method="post" action="{{ path('app_fruit_favourite', {'id': fruit.id}) }}"
+                                  onsubmit="return confirm('Are you sure you want to add favourite?');">
                                 <a class="btn btn-outline-info" href="{{ path('app_fruit_show', {'id': fruit.id}) }}">
                                     Show
                                 </a>
