@@ -44,8 +44,8 @@
                                     Edit
                                 </a>
 
-                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ fruit.id) }}">
-                                <button class="btn btn-outline-danger">Delete</button>
+                                <input type="hidden" name="_token" value="{{ csrf_token('favourite' ~ fruit.id) }}">
+                                <button class="btn btn-outline-warning">Favourite</button>
                             </form>
                         </td>
                     </tr>
